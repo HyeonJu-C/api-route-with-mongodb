@@ -1,17 +1,4 @@
-import { MongoClient } from 'mongodb'
-const client = new MongoClient(process.env.mongodb)
-
-async function addEmail(email) {
-  await client.connect()
-  console.log('Connected successfully to server')
-
-  const db = client.db('events')
-  const collection = db.collection('newsletters')
-  // newsletters 컬렉션에 데이터를 추가한다.
-  // => 이 때 데이터를 document라고 하고, document는 객체 타입이어야 한다.
-  await collection.insertOne({ email })
-  client.close()
-}
+import { connectDB, insertEmail } from '../../../helpers/mongodb'
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -25,7 +12,8 @@ export default async function handler(req, res) {
       return
     }
 
-    await addEmail(userEmail)
+    const client = await connectDB()
+    await insertEmail(client, userEmail)
 
     res.status(201).json({
       message: 'success adding the register email',
