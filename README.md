@@ -15,27 +15,5 @@
 
 ## example code
 
-```js
-import { MongoClient } from 'mongodb';
-
-const client = new MongoClient(connectionUrl);
-
-async function addUser(userName) {
-  // Use connect method to connect to the server
-  await client.connect();
-  console.log('Connected successfully to server');
-
-  // now you can access to the db
-  const db = client.db(dbName);
-  const collection = db.collection(colName);
-
-  // do something...
-  await collection.insertOne({ userName });
-  client.close();
-}
-
-addUser('hyeonju')
-  .then(console.log)
-  .catch(console.error)
-  .finally(() => client.close());
-```
+1. [DB 연결, 데이터 추가 및 읽기](https://github.com/HyeonJu-C/api-route-with-mongodb/blob/main/helpers/mongodb.js)
+2. [에러 핸들링](https://github.com/HyeonJu-C/api-route-with-mongodb/blob/main/pages/api/newsletter/index.js)
