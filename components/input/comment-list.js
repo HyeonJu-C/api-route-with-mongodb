@@ -1,7 +1,7 @@
-import classes from './comment-list.module.css';
+import classes from './comment-list.module.css'
 
 function CommentList(props) {
-  const { items } = props;
+  const { items } = props
 
   return (
     <ul className={classes.comments}>
@@ -14,7 +14,7 @@ function CommentList(props) {
         </li>
       ))}
     </ul>
-  );
+  )
 }
 
-export default CommentList;
+export default CommentList
