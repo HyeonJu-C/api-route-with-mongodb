@@ -12,8 +12,22 @@ export default async function handler(req, res) {
       return
     }
 
-    const client = await connectDB()
-    await insertEmail(client, userEmail)
+    let client
+    try {
+      client = await connectDB()
+    } catch (error) {
+      res.status(500).json({ message: 'connecting database failed', error })
+      return
+    }
+
+    try {
+      await insertEmail(client, userEmail)
+    } catch (error) {
+      res.status(500).json({ message: 'inserting email failed', error })
+      return
+    }
+
+    client?.close()
 
     res.status(201).json({
       message: 'success adding the register email',
